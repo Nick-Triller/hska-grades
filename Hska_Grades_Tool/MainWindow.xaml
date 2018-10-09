@@ -1,0 +1,74 @@
+﻿<Window x:Class="Hska_Grades_Tool.MainWindow"
+        xmlns:l="clr-namespace:Hska_Grades_Tool"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Hska Grades Tool" Height="600" Width="900">
+    <Window.Resources>
+        <l:FloatGradeToStringConverter x:Key="gradeConverter" />
+        <Style x:Key="GroupHeaderStyle" TargetType="{x:Type GroupItem}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type GroupItem}">
+                        <Expander Name="expander" IsExpanded="True" Background="White" Foreground="Black">
+                            <Expander.Header>
+                                <TextBlock Text="{Binding Name}"/>
+                            </Expander.Header>
+                            <ItemsPresenter/>
+                        </Expander>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+    <Grid Margin="10">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Label>Username:</Label>
+        <TextBox Name="usernameTextBox" Grid.Column="1" Margin="0 3 0 3"/>
+        <Label Grid.Row="1">Password:</Label>
+        <PasswordBox Name="passwordTextBox" Grid.Row="1" Grid.Column="1" Margin="0 3 0 3" />
+        <Button Grid.Row="2" Grid.Column="1" Padding="0, 3, 0, 3" Click="Button_Click">Get grades</Button>
+        <DataGrid Grid.Row="3" Grid.ColumnSpan="2" Margin="0 10 0 5" Name="dataGrid" CanUserAddRows="False" 
+                  CanUserDeleteRows="False" CanUserReorderColumns="False" IsReadOnly="True" AutoGenerateColumns="False">
+            <DataGrid.GroupStyle>
+                <GroupStyle ContainerStyle="{StaticResource GroupHeaderStyle}">
+                    <GroupStyle.Panel>
+                        <ItemsPanelTemplate>
+                            <DataGridRowsPresenter/>
+                        </ItemsPanelTemplate>
+                    </GroupStyle.Panel>
+                </GroupStyle>
+            </DataGrid.GroupStyle>
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Exam ID" Binding="{Binding ExamId}"/>
+                <DataGridTextColumn Header="Exam title" Binding="{Binding ExamTitle}"/>
+                <DataGridTextColumn Header="Grade" Binding="{Binding Grade, Converter={StaticResource gradeConverter}}"/>
+                <DataGridTextColumn Header="Status" Binding="{Binding Status}"/>
+                <DataGridTextColumn Header="Participants" Binding="{Binding Participants}"/>
+                <DataGridTextColumn Header="Exam date" Binding="{Binding ExamDate}"/>
+                <!--DataGridTextColumn Header="Semester" Binding="{Binding Semester}"/-->
+                <DataGridTextColumn Header="1.0" Binding="{Binding G100}"/>
+                <DataGridTextColumn Header="1.3" Binding="{Binding G130}"/>
+                <DataGridTextColumn Header="1.7" Binding="{Binding G170}"/>
+                <DataGridTextColumn Header="2.0" Binding="{Binding G200}"/>
+                <DataGridTextColumn Header="2.3" Binding="{Binding G230}"/>
+                <DataGridTextColumn Header="2.7" Binding="{Binding G270}"/>
+                <DataGridTextColumn Header="3.0" Binding="{Binding G300}"/>
+                <DataGridTextColumn Header="3.3" Binding="{Binding G330}"/>
+                <DataGridTextColumn Header="3.7" Binding="{Binding G370}"/>
+                <DataGridTextColumn Header="4.0" Binding="{Binding G400}"/>
+                <DataGridTextColumn Header="4.3" Binding="{Binding G430}"/>
+                <DataGridTextColumn Header="4.7" Binding="{Binding G470}"/>
+                <DataGridTextColumn Header="5.0" Binding="{Binding G500}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</Window>
